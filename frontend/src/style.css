@@ -1,0 +1,27 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600&display=swap'); */
+
+
+/* html + body */
+
+*,
+::before,
+::after {
+    --hover-color: #77dd7c;
+    --highlight-color: #72863c;
+    --bg-color: #252525;
+    --font-color: #eee;
+
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    color: #eee
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    margin: 0;
+}

@@ -1,58 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import './style.css';
 
 const App = () => {
-  const [user, setUser] = useState(false);
-  const url = process.env.REACT_APP_DB_URL;
-
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-  const getUsers = () => {
-    fetch(url)
-      .then((response) => response.text())
-      .then((data) => setUser(data));
-  };
-
-  const createUser = () => {
-    const name = prompt('enter your name');
-    const username = prompt('enter your desired username');
-    const email = prompt('enter your email');
-
-    fetch(url + '/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, username, email }),
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        alert(data);
-        getUsers();
-      });
-  };
-
-  const deleteUser = () => {
-    const id = prompt('Enter user id');
-    fetch(url + `/users/${id}`, {
-      method: 'DELETE',
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        alert(data);
-        getUsers();
-      });
-  };
-
   return (
-    <div>
-      {user ? user : 'There are no users available'}
-      <br />
-      <button onClick={createUser}>Add User</button>
-      <br />
-      <button onClick={deleteUser}>Delete User</button>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Home}></Route>
+      <Route path="/dashboard" component={Dashboard}></Route>
+      {/* <Route path="/playlists" component={Playlists}></Route>
+      <Route path="/songs" component={Songs}></Route>
+      <Route path="/search" component={Search}></Route>
+      <Route path="/account" component={Account}></Route> */}
+    </Switch>
   );
 };
 
