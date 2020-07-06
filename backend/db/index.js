@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   userModel
-    .getUsers()
+    .getUsers(req.params.id)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -42,6 +42,17 @@ app.post('/users', (req, res) => {
     })
     .catch((e) => {
       res.status(500).send(e);
+    });
+});
+
+app.get('/users/:id', (req, res) => {
+  userModel
+    .getUser(req.params.id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((e) => {
+      res.status(500).send(response);
     });
 });
 

@@ -15,7 +15,15 @@ const pool = new Pool(config);
 const getUsers = () => {
   return new Promise((resolve, reject) => {
     pool.query('SELECT * FROM users ORDER BY id ASC', (error, result) => {
-      console.log(result);
+      if (error) reject(error);
+      resolve(result.rows);
+    });
+  });
+};
+
+const getUser = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query('SELECT * FROM users WHERE id = $1', [id], (error, result) => {
       if (error) reject(error);
       resolve(result.rows);
     });
@@ -36,9 +44,8 @@ const createUser = (body) => {
   });
 };
 
-const deleteUser = () => {
+const deleteUser = (id) => {
   return new Promise((resolve, reject) => {
-    const id = parseInt(request.params.id);
     pool.query('DELETE FROM users WHERE id = $1', [id], (error, result) => {
       if (error) reject(error);
       resolve(`User with ID: ${id} was deleted.`);
@@ -50,4 +57,5 @@ module.exports = {
   getUsers,
   createUser,
   deleteUser,
+  getUser,
 };
