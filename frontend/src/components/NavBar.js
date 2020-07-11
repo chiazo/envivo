@@ -3,50 +3,54 @@ import { Link } from 'react-router-dom';
 
 import {
   AppBar,
+  makeStyles,
   Toolbar,
   Typography,
-  Button,
   List,
   ListItem,
   ListItemText,
-  TextField,
 } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
+
 const NavBar = () => {
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="title" color="inherit">
+          <Typography variant="h5" color="inherit" className={classes.title}>
             <Link to="/">Envivo</Link>
           </Typography>
-          <Typography variant="title" color="inherit">
-            <Button></Button>
-          </Typography>
-
           <List component="nav">
             <ListItem component="div">
-              <ListItemText inset>My Playlists</ListItemText>
+              <ListItemText inset>
+                <Link to="/:username/playlists">My Playlists</Link>
+              </ListItemText>
             </ListItem>
           </List>
           <List component="nav">
             <ListItem component="div">
-              <ListItemText inset>Find New Music</ListItemText>
+              <ListItemText inset>
+                <Link to="/:username/songs">Find New Music</Link>
+              </ListItemText>
             </ListItem>
           </List>
           <List component="nav">
             <ListItem component="div">
-              <ListItemText inset>My Account</ListItemText>
-            </ListItem>
-          </List>
-          <List component="nav">
-            <ListItem component="div">
-              <TextField
-                id="outlined-search"
-                label="Search field"
-                type="search"
-                variant="outlined"
-              />
+              <ListItemText inset>
+                <Link to="/:username">My Account</Link>
+              </ListItemText>
             </ListItem>
           </List>
         </Toolbar>

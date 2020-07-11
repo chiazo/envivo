@@ -16,12 +16,21 @@
 
 html {
     box-sizing: border-box;
-    background-color: var(--bg-color);
-    color: #eee
+    background-color: var(--font-color);
+    color: var(--bg-color)
 }
 
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.5;
     margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    color: inherit;
 }
