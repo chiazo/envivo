@@ -14,7 +14,7 @@ import {
 import '../style.css';
 
 const useStyles = makeStyles({
-  header: {
+  div: {
     padding: '60',
     margin: '3rem',
   },
@@ -40,7 +40,7 @@ const Home = () => {
   return (
     <div>
       <NavBar />
-      <div className={classes.header}>
+      <div className={classes.div}>
         <Grid container spacing={5}>
           <Grid item xs={false}>
             <Container maxWidth="sm" className={classes.header}>
@@ -72,7 +72,7 @@ const Home = () => {
                 color="primary"
                 className={(classes.text, classes.button)}
               >
-                <Link to="/sign-in">Login</Link>
+                <Link to="/sign-in">Sign In</Link>
               </Button>
               <Button
                 variant="outlined"

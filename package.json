@@ -4,7 +4,10 @@
   "description": "play music anywhere",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "cd backend/db && npm run start --loglevel verbose",
+    "frontend": "yarn --cwd frontend/ start",
+    "start": "concurrently --kill-others \"npm run backend\" \"npm run frontend\""
   },
   "author": "Chiazo",
   "license": "ISC",
@@ -13,5 +16,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "pg": "^8.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }

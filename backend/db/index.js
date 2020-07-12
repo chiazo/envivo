@@ -3,13 +3,11 @@ const app = express();
 const port = 3001;
 const userModel = require('../models/user');
 const cors = require('cors');
-const { response } = require('express');
 
 app.use(cors({ origin: true }));
 app.use(express.json());
 
 app.use((req, res, next) => {
-  console.log(req.method, req.url);
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.setHeader(
     'Access-Control-Allow-Methods',
