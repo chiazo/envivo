@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useCallback, useContext } from 'react';
 import {
   Grid,
-  TextField,
   Container,
   makeStyles,
   Button,
+  Typography,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import NavBar from '../NavBar';
 import { googleSignIn, githubSignIn } from '../../firebase';
+import { UserContext } from '../../providers/UserProvider';
 import '../../style.css';
 
 const useStyles = makeStyles({
@@ -27,21 +28,25 @@ const useStyles = makeStyles({
 });
 
 const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const signInHandler = (event, email, password) => {
-    event.preventDefault();
-  };
+  const userGoogleLogin = useCallback(() => {
+    googleSignIn();
+  }, []);
 
-  const onChangeHandler = (event) => {
-    const { fieldName, value } = event.currentTarget;
+  const userGithubLogin = useCallback(() => {
+    githubSignIn();
+  }, []);
 
-    if (fieldName === 'email') setEmail(value);
-    if (fieldName === 'password') setPassword(value);
-  };
-
+  const user = useContext(UserContext);
   const classes = useStyles();
+
+  if (user) {
+    return (
+      <div>
+        <NavBar />
+        <Typography variant="h4">You're signed in!</Typography>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -62,48 +67,14 @@ const SignIn = () => {
           </Grid>
         </Container>
         <Container maxWidth="sm" className={classes.div}>
-          <Grid item xs={false}>
-            {/* <form noValidate autoComplete="off">
-              <TextField
-                id="email"
-                variant="filled"
-                color="secondary"
-                label="Email Address"
-                onChange={(e) => {
-                  onChangeHandler(e);
-                }}
-                className={classes.text}
-              />
-              <TextField
-                id="password"
-                variant="filled"
-                color="secondary"
-                label="Password"
-                type="password"
-                onChange={(e) => {
-                  onChangeHandler(e);
-                }}
-                className={classes.text}
-              />
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={(e) => {
-                  signInHandler(e, email, password);
-                }}
-                className={classes.button}
-              >
-                Sign In
-              </Button>
-            </form> */}
-          </Grid>
+          <Grid item xs={false}></Grid>
         </Container>
         <Container maxWidth="sm" className={classes.div}>
           <Button
             variant="outlined"
             color="secondary"
             className={classes.button}
-            onClick={googleSignIn}
+            onClick={userGoogleLogin}
           >
             Sign In With Google
           </Button>
@@ -111,21 +82,10 @@ const SignIn = () => {
             variant="outlined"
             color="secondary"
             className={classes.button}
-            onClick={githubSignIn}
+            onClick={userGithubLogin}
           >
             Sign In With Github
           </Button>
-          {/* <p>
-            No account?{' '}
-            <Button>
-              <Link to="/sign-up">Sign up here!</Link>
-            </Button>
-          </p>
-          <p>
-            <Button>
-              <Link to="/reset-password">Forgot Password?</Link>
-            </Button>
-          </p> */}
         </Container>
       </Grid>
     </div>
